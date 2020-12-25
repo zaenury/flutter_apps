@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(new RowColumn());
+  runApp(new MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -16,7 +16,16 @@ class MyApp extends StatelessWidget {
         appBar: AppBar(
           title: Text("Aplikasi Hello World"),
         ),
-        body: Center(child: Text("Hello World")),
+        body: Center(
+            child: Container(
+                color: Colors.lightBlue,
+                width: 150,
+                height: 50,
+                child: Text(
+                  "Saya sedang melatih kemampuan flutter saya",
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                ))),
       ),
     );
   }
