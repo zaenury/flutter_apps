@@ -20,11 +20,17 @@ class MyApp extends StatelessWidget {
             child: Container(
                 color: Colors.lightBlue,
                 width: 150,
-                height: 50,
+                height: 100,
                 child: Text(
                   "Saya sedang melatih kemampuan flutter saya",
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontStyle: FontStyle.italic,
+                      fontWeight: FontWeight.w700,
+                      fontSize: 20),
+                  // textAlign: TextAlign.center, // Rata tengah
+                  // maxLines: 2, // Maximum line available
+                  // overflow: TextOverflow.ellipsis, // The text is longer than maxLines will be ...
                 ))),
       ),
     );
