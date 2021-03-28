@@ -1,716 +1,154 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
+import 'package:flutter_apps/animation-on-container.dart';
+import 'package:flutter_apps/anonymous-method.dart';
+import 'package:flutter_apps/container.dart';
+import 'package:flutter_apps/count-button.dart';
+import 'package:flutter_apps/flexible-widget-app.dart';
+import 'package:flutter_apps/hello-world.dart';
+import 'package:flutter_apps/list-example.dart';
+import 'package:flutter_apps/my-draggable-sized-box.dart';
+import 'package:flutter_apps/my-image-widget.dart';
+import 'package:flutter_apps/my-spacer-widget.dart';
+import 'package:flutter_apps/my-stack.dart';
+import 'package:flutter_apps/row-column.dart';
+import 'package:flutter_apps/text-style.dart';
 
 void main() {
-  runApp(new MyDraggableAndSizedBox());
+  runApp(MaterialApp(
+    title: 'List of flutter lesson',
+    home: Home(),
+  ));
 }
 
-class MyDraggableAndSizedBox extends StatefulWidget {
-  @override
-  _MyDraggableAndSizedBoxState createState() => _MyDraggableAndSizedBoxState();
-}
-
-class _MyDraggableAndSizedBoxState extends State<MyDraggableAndSizedBox> {
-  Color color1 = Colors.red;
-  Color color2 = Colors.amber;
-  bool isAccepted = false;
-  Color colorTarget;
-
+class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text("My Draggable And SizedBox"),
-        ),
-        body: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('List of flutter lesson'),
+      ),
+      body: Center(
+        child: Column(
           children: <Widget>[
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: <Widget>[
-                Draggable<Color>(
-                  data: color1,
-                  child: SizedBox(
-                    height: 50,
-                    width: 50,
-                    child: Material(
-                      color: color1,
-                      shape: StadiumBorder(),
-                      elevation: 3,
-                    ),
-                  ),
-                  childWhenDragging: SizedBox(
-                    height: 50,
-                    width: 50,
-                    child: Material(
-                      color: Colors.grey,
-                      shape: StadiumBorder(),
-                    ),
-                  ),
-                  feedback: SizedBox(
-                    height: 50,
-                    width: 50,
-                    child: Material(
-                      color: color1.withOpacity(0.7),
-                      shape: StadiumBorder(),
-                    ),
-                  ),
-                ),
-                Draggable<Color>(
-                  data: color2,
-                  child: SizedBox(
-                    height: 50,
-                    width: 50,
-                    child: Material(
-                      color: color2,
-                      shape: StadiumBorder(),
-                      elevation: 3,
-                    ),
-                  ),
-                  childWhenDragging: SizedBox(
-                    height: 50,
-                    width: 50,
-                    child: Material(
-                      color: Colors.grey,
-                      shape: StadiumBorder(),
-                    ),
-                  ),
-                  feedback: SizedBox(
-                    height: 50,
-                    width: 50,
-                    child: Material(
-                      color: color2.withOpacity(0.7),
-                      shape: StadiumBorder(),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            DragTarget<Color>(
-              onWillAccept: (value) => true,
-              onAccept: (value) {
-                isAccepted = true;
-                colorTarget = (value);
+            ElevatedButton(
+              child: Text('Hello World'),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => MyApp()),
+                );
               },
-              builder: (context, candidates, rejected) {
-                return (isAccepted)
-                    ? SizedBox(
-                        height: 100,
-                        width: 100,
-                        child: Material(
-                          color: colorTarget,
-                          shape: StadiumBorder(),
-                        ),
-                      )
-                    : SizedBox(
-                        height: 100,
-                        width: 100,
-                        child: Material(
-                          color: Colors.grey,
-                          shape: StadiumBorder(),
-                        ),
-                      );
+            ),
+            ElevatedButton(
+              child: Text('Row Column'),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => RowColumn()),
+                );
               },
-            )
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class MySpacerWidget extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text("My Spacer Widget"),
-        ),
-        body: Center(
-          child: Row(
-            // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-              Spacer(
-                flex: 1,
-              ),
-              Container(
-                height: 50,
-                width: 50,
-                color: Colors.red,
-              ),
-              Spacer(
-                flex: 2,
-              ),
-              Container(
-                height: 50,
-                width: 50,
-                color: Colors.blue,
-              ),
-              Spacer(flex: 3),
-              Container(
-                height: 50,
-                width: 50,
-                color: Colors.green,
-              )
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class MyImageWidget extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text("My Image Widget"),
-        ),
-        body: Center(
-          child: Container(
-            color: Colors.black,
-            padding: EdgeInsets.all(3),
-            height: 120,
-            width: 120,
-            child: Image(
-              // Image from network
-              // image: NetworkImage(
-              //     "https://avatars2.githubusercontent.com/u/42806183?s=460&u=224a1be61931272bc98a98372d89f2715cd5091e&v=4"),
-
-              // Image from assets
-              image: AssetImage("images/flutter-image.png"),
-              fit: BoxFit.contain,
-              //repeat: ImageRepeat.repeat,
             ),
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class MyStack extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text("My Stack & Align"),
-        ),
-        body: Stack(
-          // layer 1
-          children: <Widget>[
-            Column(
-              children: [
-                Flexible(
-                  flex: 1,
-                  child: Row(
-                    children: <Widget>[
-                      Flexible(
-                        flex: 1,
-                        child: Container(color: Colors.white),
-                      ),
-                      Flexible(
-                        flex: 1,
-                        child: Container(color: Colors.black12),
-                      )
-                    ],
-                  ),
-                ),
-                Flexible(
-                  flex: 1,
-                  child: Row(
-                    children: <Widget>[
-                      Flexible(
-                        flex: 1,
-                        child: Container(color: Colors.black12),
-                      ),
-                      Flexible(
-                        flex: 1,
-                        child: Container(color: Colors.white),
-                      )
-                    ],
-                  ),
-                ),
-              ],
+            ElevatedButton(
+              child: Text('Container'),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => MyContainer()),
+                );
+              },
             ),
-            // layer 2
-            ListView(
-              children: <Widget>[
-                Column(
-                  children: [
-                    Text(
-                      "Ini Adalah Text View",
-                      style: TextStyle(fontSize: 30),
-                    ),
-                    Text(
-                      "Ini Adalah Text View",
-                      style: TextStyle(fontSize: 30),
-                    ),
-                    Text(
-                      "Ini Adalah Text View",
-                      style: TextStyle(fontSize: 30),
-                    ),
-                    Text(
-                      "Ini Adalah Text View",
-                      style: TextStyle(fontSize: 30),
-                    ),
-                    Text(
-                      "Ini Adalah Text View",
-                      style: TextStyle(fontSize: 30),
-                    ),
-                    Text(
-                      "Ini Adalah Text View",
-                      style: TextStyle(fontSize: 30),
-                    ),
-                    Text(
-                      "Ini Adalah Text View",
-                      style: TextStyle(fontSize: 30),
-                    ),
-                    Text(
-                      "Ini Adalah Text View",
-                      style: TextStyle(fontSize: 30),
-                    ),
-                    Text(
-                      "Ini Adalah Text View",
-                      style: TextStyle(fontSize: 30),
-                    ),
-                    Text(
-                      "Ini Adalah Text View",
-                      style: TextStyle(fontSize: 30),
-                    ),
-                    Text(
-                      "Ini Adalah Text View",
-                      style: TextStyle(fontSize: 30),
-                    ),
-                    Text(
-                      "Ini Adalah Text View",
-                      style: TextStyle(fontSize: 30),
-                    ),
-                    Text(
-                      "Ini Adalah Text View",
-                      style: TextStyle(fontSize: 30),
-                    ),
-                    Text(
-                      "Ini Adalah Text View",
-                      style: TextStyle(fontSize: 30),
-                    ),
-                    Text(
-                      "Ini Adalah Text View",
-                      style: TextStyle(fontSize: 30),
-                    ),
-                    Text(
-                      "Ini Adalah Text View",
-                      style: TextStyle(fontSize: 30),
-                    ),
-                    Text(
-                      "Ini Adalah Text View",
-                      style: TextStyle(fontSize: 30),
-                    ),
-                    Text(
-                      "Ini Adalah Text View",
-                      style: TextStyle(fontSize: 30),
-                    ),
-                    Text(
-                      "Ini Adalah Text View",
-                      style: TextStyle(fontSize: 30),
-                    ),
-                    Text(
-                      "Ini Adalah Text View",
-                      style: TextStyle(fontSize: 30),
-                    ),
-                    Text(
-                      "Ini Adalah Text View",
-                      style: TextStyle(fontSize: 30),
-                    ),
-                    Text(
-                      "Ini Adalah Text View",
-                      style: TextStyle(fontSize: 30),
-                    ),
-                    Text(
-                      "Ini Adalah Text View",
-                      style: TextStyle(fontSize: 30),
-                    ),
-                    Text(
-                      "Ini Adalah Text View",
-                      style: TextStyle(fontSize: 30),
-                    )
-                  ],
-                )
-              ],
+            ElevatedButton(
+              child: Text('Count Button'),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => CountButton()),
+                );
+              },
             ),
-            // layer 3
-            Align(
-              alignment: Alignment(0, 0.8),
-              child: RaisedButton(
-                child: Text("My Button"),
-                color: Colors.amber,
-                onPressed: () {},
-              ),
-            )
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class FlexibleWidgetApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text("Flexible Widget"),
-        ),
-        body: Column(
-          children: <Widget>[
-            Flexible(
-              flex: 1,
-              child: Row(
-                children: <Widget>[
-                  Flexible(
-                    flex: 1,
-                    child: Container(
-                      color: Colors.amber,
-                      margin: EdgeInsets.all(5),
-                    ),
-                  ),
-                  Flexible(
-                    flex: 1,
-                    child: Container(
-                      color: Colors.deepOrangeAccent,
-                      margin: EdgeInsets.all(5),
-                    ),
-                  ),
-                  Flexible(
-                    flex: 1,
-                    child: Container(
-                      color: Colors.greenAccent,
-                      margin: EdgeInsets.all(5),
-                    ),
-                  ),
-                ],
-              ),
+            ElevatedButton(
+              child: Text('List Example'),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => ListExample()),
+                );
+              },
             ),
-            Flexible(
-              flex: 2,
-              child: Container(
-                color: Colors.blueAccent,
-                margin: EdgeInsets.all(5),
-              ),
+            ElevatedButton(
+              child: Text('Anonymous Method'),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => AnonymousMethod()),
+                );
+              },
             ),
-            Flexible(
-              flex: 1,
-              child: Container(
-                color: Colors.brown,
-                margin: EdgeInsets.all(5),
-              ),
-            )
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class AnimationOnContainer extends StatefulWidget {
-  @override
-  _AnimationOnContainerState createState() => _AnimationOnContainerState();
-}
-
-class _AnimationOnContainerState extends State<AnimationOnContainer> {
-  Random random = Random(); // auto import 'dart:math';
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text("Animation Widget"),
-        ),
-        body: Center(
-          // Pakai GestureDetector karena AnimatedContainer tidak punya event didalamnya.
-          child: GestureDetector(
-            onTap: () {
-              setState(() {}); // hanya merefresh halaman
-            },
-            child: AnimatedContainer(
-              color: Color.fromARGB(255, random.nextInt(256),
-                  random.nextInt(256), random.nextInt(256)),
-              duration: Duration(seconds: 1),
-              width: 50.0 + random.nextInt(201),
-              height: 50.0 + random.nextInt(201),
+            ElevatedButton(
+              child: Text('Text Style'),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => TextStyleExample()),
+                );
+              },
             ),
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class TextStyleExample extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text("Text Style"),
-        ),
-        body: Center(
-          child: Text("INI ADALAH TEXT",
-              style: TextStyle(
-                  fontFamily: "crashlandingBB",
-                  fontSize: 40,
-                  fontStyle: FontStyle.italic,
-                  decoration: TextDecoration.overline,
-                  decorationColor: Colors.red,
-                  decorationThickness: 5,
-                  decorationStyle: TextDecorationStyle.wavy)),
-        ),
-      ),
-    );
-  }
-}
-
-class AnonymousMethod extends StatefulWidget {
-  @override
-  _AnonymousMethodState createState() => _AnonymousMethodState();
-}
-
-class _AnonymousMethodState extends State<AnonymousMethod> {
-  String message = "Ini adalah text";
-
-  // Kalau cuma sekali pakai tidak butuh deklrasai method dengan nama.
-  // Langsung pakai ditempat yang diinginkan
-  // void clickedButton() {
-  //   setState(() {
-  //     message = "Tombol ini sudah ditekan";
-  //   });
-  // }
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text("Anonymous Method"),
-        ),
-        body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Text(message),
-              RaisedButton(
-                child: Text("tekan tombol"),
-                //anonymouse method (method tanpa nama)
-                onPressed: () {
-                  setState(() {
-                    message = "Tombol ini sudah ditekan";
-                  });
-                },
-              )
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class ListExample extends StatefulWidget {
-  @override
-  _ListExampleState createState() => _ListExampleState();
-}
-
-class _ListExampleState extends State<ListExample> {
-  List<Widget> widgets = [];
-  int counter = 1;
-
-  // Untuk menampilkan view list saja dengan for, maka datanya dimasukkan ke constructor
-  // _ListExampleState() { // constructor
-  //   for (int i = 0; i < 50; i++) {
-  //     widgets.add(Text(
-  //       "Bilangan ke-" + i.toString(),
-  //       style: TextStyle(fontSize: 20),
-  //     ));
-  //   }
-  // }
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text("List Example"),
-        ),
-        body: ListView(
-          children: <Widget>[
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: <Widget>[
-                RaisedButton(
-                  child: Text("Tambah Data"),
-                  onPressed: () {
-                    setState(() {
-                      widgets.add(Text(
-                        "Bilangan ke -" + counter.toString(),
-                        style: TextStyle(fontSize: 30),
-                      ));
-                      counter++;
-                    });
-                  },
-                ),
-                RaisedButton(
-                    child: Text("Hapus Data"),
-                    onPressed: () {
-                      setState(() {
-                        widgets.removeLast();
-                        counter--;
-                      });
-                    }),
-              ],
+            ElevatedButton(
+              child: Text('Animation on Container'),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => AnimationOnContainer()),
+                );
+              },
             ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: widgets,
-            )
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class CountButton extends StatefulWidget {
-  @override
-  _CountButtonState createState() => _CountButtonState();
-}
-
-class _CountButtonState extends State<CountButton> {
-  int number = 0;
-  void tekanTombol() {
-    setState(() {
-      number += 1;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text("Statefull Widget Demo"),
-        ),
-        body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Text(
-                number.toString(),
-                style: TextStyle(fontSize: 10 + number.toDouble()),
-              ),
-              RaisedButton(
-                child: Text("Tekan Saya"),
-                onPressed: tekanTombol,
-              )
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class MyContainer extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text("Latihan Container"),
-        ),
-        body: Container(
-          color: Colors.red,
-          padding: EdgeInsets.fromLTRB(5, 10, 15, 20),
-          margin: EdgeInsets.all(10),
-          // margin: EdgeInsets.only(bottom: 10, top: 10),
-          child: Container(
-            // color: Colors.blue,
-            margin: EdgeInsets.all(10),
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(20),
-                gradient: LinearGradient(
-                    begin: Alignment.topLeft,
-                    end: Alignment.bottomRight,
-                    colors: <Color>[Colors.amber, Colors.blue])),
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    // Sebuah widget data2 yang membutuhkan material design
-    return MaterialApp(
-      // home: tampilan awal material App
-      // Scaffold: sebuah tampilan dasar aplikasi android
-      home: Scaffold(
-        // appBar: judul aplikasi
-        appBar: AppBar(
-          title: Text("Aplikasi Hello World"),
-        ),
-        body: Center(
-            child: Container(
-                color: Colors.lightBlue,
-                width: 150,
-                height: 100,
-                child: Text(
-                  "Saya sedang melatih kemampuan flutter saya",
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontStyle: FontStyle.italic,
-                      fontWeight: FontWeight.w700,
-                      fontSize: 20),
-                  // textAlign: TextAlign.center, // Rata tengah
-                  // maxLines: 2, // Maximum line available
-                  // overflow: TextOverflow.ellipsis, // The text is longer than maxLines will be ...
-                ))),
-      ),
-    );
-  }
-}
-
-class RowColumn extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text("Latihan Row dan Column"),
-        ),
-        body: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Text("Text 1"),
-            Text("Text 2"),
-            Text("Text 3"),
-            Row(
-              children: <Widget>[
-                Text("Text 4"),
-                Text("Text 5"),
-                Text("Text 6")
-              ],
-            )
+            ElevatedButton(
+              child: Text('Flexible Widget App'),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => FlexibleWidgetApp()),
+                );
+              },
+            ),
+            ElevatedButton(
+              child: Text('My Stack'),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => MyStack()),
+                );
+              },
+            ),
+            ElevatedButton(
+              child: Text('My Image Widget'),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => MyImageWidget()),
+                );
+              },
+            ),
+            ElevatedButton(
+              child: Text('My Spacer Widget'),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => MySpacerWidget()),
+                );
+              },
+            ),
+            ElevatedButton(
+              child: Text('My Draggable Sized Box'),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => MyDraggableAndSizedBox()),
+                );
+              },
+            ),
           ],
         ),
       ),
