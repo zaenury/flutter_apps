@@ -6,6 +6,7 @@ import 'package:flutter_apps/count-button.dart';
 import 'package:flutter_apps/flexible-widget-app.dart';
 import 'package:flutter_apps/hello-world.dart';
 import 'package:flutter_apps/list-example.dart';
+import 'package:flutter_apps/push_replacemenet.dart';
 import 'package:flutter_apps/my-draggable-sized-box.dart';
 import 'package:flutter_apps/my-image-widget.dart';
 import 'package:flutter_apps/my-spacer-widget.dart';
@@ -16,11 +17,11 @@ import 'package:flutter_apps/text-style.dart';
 void main() {
   runApp(MaterialApp(
     title: 'List of flutter lesson',
-    home: Home(),
+    home: MyApp(),
   ));
 }
 
-class Home extends StatelessWidget {
+class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -146,6 +147,15 @@ class Home extends StatelessWidget {
                   context,
                   MaterialPageRoute(
                       builder: (context) => MyDraggableAndSizedBox()),
+                );
+              },
+            ),
+            ElevatedButton(
+              child: Text('Multi Page Navigation'),
+              onPressed: () {
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (context) => PushReplacement()),
                 );
               },
             ),
